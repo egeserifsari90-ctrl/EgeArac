@@ -1,0 +1,17 @@
+'use strict';
+const defaults={name:'Benim Uygulamam',html:'<main>\n  <h1>Merhaba Dünya! 🚀</h1>\n  <p>Bu uygulamayı Ege App Builder ile yaptım.</p>\n  <button id="hello">Tıkla</button>\n  <p id="result"></p>\n</main>',css:'body { font-family: system-ui, sans-serif; text-align: center; padding: 42px 15px; background: #f3f7ff; color: #192e55; }\nbutton { border: 0; border-radius: 10px; background: #326ce5; padding: 12px 20px; color: white; cursor: pointer; }',js:"document.getElementById('hello').addEventListener('click', () => { document.getElementById('result').textContent = 'Çalışıyor! 🎉'; });"};
+const els={name:document.querySelector('#name'),code:document.querySelector('#code'),frame:document.querySelector('#frame'),msg:document.querySelector('#message')};
+let project={...defaults};try{const saved=JSON.parse(localStorage.getItem('ege-app-builder-v1'));if(saved&&['name','html','css','js'].every(k=>typeof saved[k]==='string'))project=saved;}catch(_){}
+let active='html';els.name.value=project.name;els.code.value=project[active];
+const escapeClose=(value,tag)=>value.replace(new RegExp('</'+tag,'gi'),'<\\/'+tag);
+function compose(){const title=project.name.replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));return '<!doctype html>\n<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+title+'</title><style>\n'+escapeClose(project.css,'style')+'\n</style></head><body>\n'+project.html+'\n<script>\n'+escapeClose(project.js,'script')+'\n<\\/script></body></html>'.replace('<\\/script>','</script>');}
+function sync(){project[active]=els.code.value;project.name=els.name.value.trim()||defaults.name;}
+function show(message){els.msg.textContent=message;}
+function render(){sync();els.frame.srcdoc=compose();show('Önizleme güncellendi.');}
+function switchTab(tab){sync();active=tab;els.code.value=project[tab];document.querySelectorAll('.tab').forEach(b=>{const selected=b.dataset.tab===tab;b.classList.toggle('active',selected);b.setAttribute('aria-pressed',String(selected));});}
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>switchTab(b.dataset.tab)));
+document.querySelector('#run').addEventListener('click',render);
+document.querySelector('#save').addEventListener('click',()=>{sync();try{localStorage.setItem('ege-app-builder-v1',JSON.stringify(project));show('Proje bu tarayıcıda kaydedildi.');}catch(_){show('Kaydedilemedi: tarayıcı depolaması kullanılamıyor.');}});
+document.querySelector('#download').addEventListener('click',()=>{sync();const file=new Blob([compose()],{type:'text/html;charset=utf-8'});const url=URL.createObjectURL(file);const link=document.createElement('a');link.href=url;link.download=(project.name.normalize('NFKD').replace(/[^a-zA-Z0-9-_]+/g,'-').replace(/^-+|-+$/g,'').slice(0,50)||'uygulama')+'.html';document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);show('HTML dosyası indirildi.');});
+document.querySelector('#reset').addEventListener('click',()=>{if(!confirm('Kodları başlangıç örneğine döndürmek istiyor musun?'))return;project={...defaults};localStorage.removeItem('ege-app-builder-v1');els.name.value=project.name;active='html';els.code.value=project.html;document.querySelectorAll('.tab').forEach(b=>{b.classList.toggle('active',b.dataset.tab==='html');b.setAttribute('aria-pressed',String(b.dataset.tab==='html'));});render();});
+render();
