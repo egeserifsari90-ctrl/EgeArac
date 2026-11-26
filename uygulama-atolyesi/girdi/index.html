@@ -1,0 +1,30 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><meta name="atolye-paket" content="studio.atolye.patolyeornek">
+<title>Odak sayacı</title><style>:root{--accent:#F08B68}
+*{box-sizing:border-box}html{min-height:100%;background:#fcf7ed}body{max-width:540px;margin:0 auto;padding:clamp(29px,6vw,53px) clamp(15px,5vw,32px) 18px;color:#302c27;font:16px/1.4 system-ui,sans-serif;text-align:center}header{display:grid;justify-items:center}h1{font-size:clamp(21px,7vw,36px);line-height:1.07;letter-spacing:-.055em;overflow-wrap:anywhere;margin:0}header p{margin:6px 0 15px;font-size:clamp(12px,3vw,16px);color:#62594e;overflow-wrap:anywhere}button,input{font:inherit}button{cursor:pointer;color:inherit}.go{width:100%;max-width:290px;display:block;margin:12px auto 0;background:var(--accent);border:1.5px solid #322d28;border-radius:9px;padding:9px 12px;font-weight:750;box-shadow:0 2px 0 #322d28}.reset{background:none;border:0;text-decoration:underline;text-underline-offset:3px;font-size:13px;margin-top:6px;padding:6px}button:focus-visible,input:focus-visible{outline:3px solid #485c9e;outline-offset:2px}
+.orbit{position:relative;width:clamp(84px,36vw,164px);aspect-ratio:1;margin:5px auto 3px;isolation:isolate}.orbit b,.orbit i{position:absolute;inset:8%;border:1.5px solid #493a32;border-radius:50%;background:var(--accent)}.orbit b{box-shadow:4px 4px #302c27}.orbit i{inset:22%;background:none;border-style:dashed}.orbit:after{content:"";position:absolute;inset:46%;background:#302c27;border-radius:50%}.orbit em{position:absolute;bottom:50%;left:49%;height:30%;width:2px;background:#302c27;transform-origin:bottom;transform:rotate(32deg)}.digits{font-variant-numeric:tabular-nums;letter-spacing:-.07em;font-weight:720;font-size:clamp(36px,17vw,76px);line-height:1.15;margin:2px 0}</style></head><body>
+<header><h1>Odak sayacı</h1><p>Kendine biraz zaman ayır.</p></header><main><div class="orbit" aria-hidden="true"><b></b><i></i><em></em></div>
+<div class="digits" role="timer">25:00</div>
+<button class="go">Başlat</button>
+<button class="reset">Sıfırla</button></main>
+<script>const APP = {"name":"Odak sayacı","sub":"Kendine biraz zaman ayır.","color":"#F08B68","minutes":25,"id":"patolyeornek"};
+  const face = document.querySelector(".digits");
+  const toggle = document.querySelector(".go");
+  let remain = APP.minutes * 60000;
+  let deadline = 0;
+  let timer;
+  function draw(){
+    if(deadline) remain = Math.max(0, deadline - Date.now());
+    const secs = Math.ceil(remain / 1000);
+    face.textContent = Math.floor(secs / 60).toString().padStart(2, "0") + ":" + (secs % 60).toString().padStart(2, "0");
+    if(remain === 0){ clearInterval(timer); deadline = 0; toggle.textContent = "Tekrar başlat"; }
+  }
+  toggle.onclick = () => {
+    if(deadline){ draw(); clearInterval(timer); deadline = 0; toggle.textContent = "Devam et"; }
+    else { if(remain <= 0) remain = APP.minutes * 60000; deadline = Date.now() + remain; toggle.textContent = "Duraklat"; timer = setInterval(draw, 200); draw(); }
+  };
+  document.querySelector(".reset").onclick = () => {
+    clearInterval(timer); deadline = 0; remain = APP.minutes * 60000; toggle.textContent = "Başlat"; draw();
+  };
+  draw();
+</script></body></html>

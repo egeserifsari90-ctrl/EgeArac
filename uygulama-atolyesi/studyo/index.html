@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f6f5f2"><title>Ege Atölye · Uygulama stüdyosu</title>
+  <link rel="stylesheet" href="studio.css"><script defer src="templates.js"></script><script defer src="zip.js"></script><script defer src="studio.js"></script>
+</head>
+<body>
+<header><div class="wrap bar"><div class="brand"><span class="brand-icon" aria-hidden="true">◩</span> Ege Atölye</div><span class="brand-sub">Uygulama oluşturucu</span><a class="repo" href="https://github.com/egeserifsari90-ctrl/EgeArac/tree/uygulama-atolyesi/uygulama-atolyesi" target="_blank" rel="noopener"><i data-icon="git"></i> GitHub</a></div></header>
+<main class="wrap">
+  <div class="intro"><div><h1>Uygulama stüdyosu<span>.</span></h1><p>Bir şablon seç, kendi uygulamana dönüştür.</p></div><button class="primary export" id="export"><i data-icon="export"></i>Dışa aktar</button></div>
+  <section class="templates" aria-labelledby="template-title"><h2 id="template-title">Şablonlar</h2><div class="cards">
+    <button class="card focus" data-t="focus" aria-pressed="true"><span class="cardcopy"><strong>Odak sayacı</strong><small>Çalışma zamanlayıcısı</small></span><span class="art clock" aria-hidden="true"><b></b></span><span class="check" aria-hidden="true">✓</span></button>
+    <button class="card list" data-t="list" aria-pressed="false"><span class="cardcopy"><strong>Görev listesi</strong><small>Günlük yapılacaklar</small></span><span class="art checklist" aria-hidden="true"><b>✓</b><b>✓</b><b>·</b></span><span class="check" aria-hidden="true">✓</span></button>
+    <button class="card score" data-t="score" aria-pressed="false"><span class="cardcopy"><strong>Puan sayacı</strong><small>İki takımlı skor tablosu</small></span><span class="art scores" aria-hidden="true"><b>2</b><b>1</b></span><span class="check" aria-hidden="true">✓</span></button>
+  </div></section>
+  <div class="workspace">
+    <section class="panel settings"><div class="panelhead"><h2><i data-icon="sliders"></i>Düzenleyici</h2><span id="saved" role="status">Hazır</span></div>
+      <div class="settings-body"><div class="tabs"><button id="design-tab" aria-pressed="true"><i data-icon="design"></i>Tasarım</button><button id="code-tab" aria-pressed="false"><i data-icon="code"></i>Kod</button></div>
+        <div id="design"><div class="field"><label for="name">Uygulama adı</label><input id="name" maxlength="60"></div>
+        <div class="field"><label for="sub">Kısa açıklama</label><textarea id="sub" rows="2" maxlength="160"></textarea></div>
+        <div class="field" id="minutes-row"><label for="minutes">Oturum süresi</label><div class="unit"><input id="minutes" type="number" min="1" max="180" step="1"><span>dakika</span></div></div>
+        <fieldset class="field"><legend>Vurgu rengi</legend><div class="color-row"><div id="colors" class="colors"></div><output id="color-name"></output></div></fieldset></div>
+        <div id="code" hidden><div id="languages" class="languages"><button data-lang="html">HTML</button><button data-lang="css">CSS</button><button data-lang="js">JS</button></div><label class="sr" for="source">Şablon kaynak kodu</label><textarea id="source" rows="12" spellcheck="false" autocapitalize="off" autocomplete="off"></textarea><p class="help">Yaptığın değişiklikleri önizlemede deneyebilirsin.</p></div>
+      </div>
+    </section>
+    <section class="panel preview"><div class="panelhead"><h2><i data-icon="phone"></i>Canlı önizleme</h2><button id="restart" class="iconbtn" title="Önizlemeyi yeniden başlat" aria-label="Önizlemeyi yeniden başlat"><i data-icon="reload"></i></button></div>
+      <div class="stage"><div class="phone"><div class="speaker" aria-hidden="true"></div><iframe title="Uygulamanın etkileşimli önizlemesi" sandbox="allow-scripts"></iframe><div class="homebar" aria-hidden="true"></div></div></div>
+    </section>
+  </div>
+</main>
+<dialog id="download"><div class="dialoghead"><h2>Dışa aktar</h2><button id="close" class="iconbtn" aria-label="Kapat">✕</button></div><p>Uygulamanı tablette açmak veya Android için paketlemek üzere indir.</p>
+<button id="html-download" class="option"><i data-icon="code"></i><span><strong>HTML indir</strong><small>Tek dosya · Tarayıcıda açılır</small></span><i data-icon="export"></i></button>
+<button id="android-download" class="option"><i data-icon="phone"></i><span><strong>Android projesini indir</strong><small>ZIP · GitHub Actions ile APK üretir</small></span><i data-icon="export"></i></button>
+<details id="steps"><summary>GitHub’da APK nasıl oluşturulur?</summary><ol><li><b>HTML indir</b> ile <code>index.html</code> dosyanı kaydet.</li><li><a id="upload-link" target="_blank" rel="noopener">GitHub yükleme sayfasını aç</a>. Dosyayı ekle ve <b>Commit changes</b> ile bu dala kaydet. Yüklediğin kod herkese açık depoda görünür.</li><li><a id="actions-link" target="_blank" rel="noopener">Derlemeleri aç</a>. Başarılı çalıştırmada <b>Artifacts → atolye-apk</b> arşivini indir.</li></ol></details><div role="status" id="download-status"></div></dialog>
+</body></html>

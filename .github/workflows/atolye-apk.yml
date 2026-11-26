@@ -1,0 +1,36 @@
+name: Atölye APK
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'uygulama-atolyesi/girdi/index.html'
+      - 'uygulama-atolyesi/android/**'
+      - '.github/workflows/atolye-apk.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  apk:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.9'
+      - name: Uygulama dosyasını hazırla
+        run: python3 uygulama-atolyesi/android/prepare.py
+      - name: Android SDK paketlerini hazırla
+        run: '"${ANDROID_HOME}/cmdline-tools/latest/bin/sdkmanager" "platforms;android-35" "build-tools;34.0.0"'
+      - name: Test APK’sını derle
+        run: gradle --no-daemon -p uygulama-atolyesi/android :app:assembleDebug
+      - uses: actions/upload-artifact@v4
+        with:
+          name: atolye-apk
+          path: uygulama-atolyesi/android/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
