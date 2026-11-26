@@ -4,7 +4,7 @@ Tarayıcıdan şablon seçerek tek dosyalık uygulamalar hazırlayan Türkçe ed
 
 ## Editör
 
-Canlı stüdyoyu açmak için bu klasördeki proje bağlantısını kullanabilir veya `studyo` klasörünü bir statik sunucuda açabilirsin. Yerel kullanım için bu klasörde `python3 -m http.server 8000 --directory studyo` komutunu çalıştır ve tarayıcından `http://localhost:8000` adresini aç.
+Editörü yerel olarak açmak için bu klasörde `python3 -m http.server 8000 --directory studyo` komutunu çalıştır ve tarayıcından `http://localhost:8000` adresini aç.
 
 ## Kendi uygulaman
 
