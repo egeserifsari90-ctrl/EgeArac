@@ -4,7 +4,7 @@ const els={name:document.querySelector('#name'),code:document.querySelector('#co
 let project={...defaults};try{const saved=JSON.parse(localStorage.getItem('ege-app-builder-v1'));if(saved&&['name','html','css','js'].every(k=>typeof saved[k]==='string'))project=saved;}catch(_){}
 let active='html';els.name.value=project.name;els.code.value=project[active];
 const escapeClose=(value,tag)=>value.replace(new RegExp('</'+tag,'gi'),'<\\/'+tag);
-function compose(){const title=project.name.replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));return '<!doctype html>\n<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+title+'</title><style>\n'+escapeClose(project.css,'style')+'\n</style></head><body>\n'+project.html+'\n<script>\n'+escapeClose(project.js,'script')+'\n<\\/script></body></html>'.replace('<\\/script>','</script>');}
+function compose(){const title=project.name.replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));return '<!doctype html>\n<html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>'+title+'</title><style>\n'+escapeClose(project.css,'style')+'\n</style></head><body>\n'+project.html+'\n<script>\n'+escapeClose(project.js,'script')+'\n</scr'+'ipt></body></html>';}
 function sync(){project[active]=els.code.value;project.name=els.name.value.trim()||defaults.name;}
 function show(message){els.msg.textContent=message;}
 function render(){sync();els.frame.srcdoc=compose();show('Önizleme güncellendi.');}
