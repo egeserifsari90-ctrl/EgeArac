@@ -1,20 +1,17 @@
-# Ege App Builder v1.0
+# Ege App Builder v2
 
-Mobil ve masaüstünde çalışan, bağımlılığı olmayan HTML/CSS/JavaScript web uygulaması oluşturucu.
+Bu **uygulama yapma aracıdır**; tek bir hazır uygulama değildir. Tarayıcıda HTML, CSS ve JavaScript tabanlı çeşitli uygulamalar üretir.
+
+## Özellikler
+- Başlangıç, not defteri ve sayaç şablonları
+- Kod düzenleme ve sandbox iframe önizlemesi
+- Tek HTML dosyası indirme
+- JSON proje dışa/içe aktarma
+- Tarayıcıda yerel taslak kaydı
+- Telefon ve tablet uyumlu arayüz
 
 ## Kullanım
-`index.html` dosyasını tarayıcıda açın veya bir statik sunucuda yayınlayın.
-1. Uygulama adını girin.
-2. HTML, CSS ve JavaScript sekmelerinde kodu düzenleyin.
-3. **Önizle** ile uygulamayı korumalı iframe içinde çalıştırın.
-4. **Kaydet** ile taslağı tarayıcıda saklayın.
-5. **HTML indir** ile tek dosyalık web uygulaması indirin.
+`app-builder/index.html` dosyasını açın; şablon seçin veya kod yazın; Önizle ve HTML indir düğmelerini kullanın.
 
-## Kapsam ve güvenlik
-- Bu sürüm **APK/AAB üretmez**. Android paketi için ayrı bir WebView/Gradle derleme hattı gerekir.
-- Kod önizlemesi sandbox iframe içinde çalışır; tanımadığınız kodları yapıştırmayın.
-- Projeler yalnızca tarayıcı localStorage alanında saklanır; GitHub'a otomatik gönderilmez.
-- İndirilen tek HTML dosyasının dış kaynakları varsa çevrimdışı çalışmayabilir.
-
-## Geliştirme
-Vanilla JS, derleme bağımlılığı yoktur. Çalıştırmak için modern bir tarayıcı yeterlidir.
+## Sınırlar
+Bu sürüm tarayıcıda web uygulaması üretir, **doğrudan APK/AAB oluşturmaz**. GitHub'da otomatik depo oluşturmaz veya projeyi GitHub'a yüklemez; bunun için sunucu tarafı OAuth/GitHub App entegrasyonu gerekir. Token'ı tarayıcı koduna gömmeyin. Korumalı iframe güvenlik sınırıdır; yalnızca güvenilir kodları çalıştırın. Şablonların localStorage kullanımı önizleme sandbox koşullarına göre değişebilir.
